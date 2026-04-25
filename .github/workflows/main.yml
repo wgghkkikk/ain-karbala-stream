@@ -1,6 +1,8 @@
 name: Karbala Stream Direct
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # يعيد تشغيل نفسه كل 6 ساعات تلقائياً
 jobs:
   stream:
     runs-on: ubuntu-latest
@@ -13,6 +15,6 @@ jobs:
         run: |
           wget -q https://github.com/google/fonts/raw/main/ofl/amiri/Amiri-Bold.ttf -O /tmp/font.ttf
           ffmpeg -re -i "https://stream.alkafeel.net/live/alkafeel/playlist.m3u8" \
-          -vf "drawtext=fontfile=/tmp/font.ttf:text='عـيـن كـربـلاء':x=w-tw-40:y=40:fontsize=65:fontcolor='#FFD700':box=1:boxcolor=black@1:boxborderw=25, \
+          -vf "drawtext=fontfile=/tmp/font.ttf:text='عـيـن كـربـلاء':x=w-tw-5:y=5:fontsize=65:fontcolor='#FFD700':box=1:boxcolor=black@1:boxborderw=25, \
           drawtext=fontfile=/tmp/font.ttf:text='اللهم ارزقنا زيارة الحسين في الدنيا وشفاعته في الآخرة .. قناة عين كربلاء ترحب بكم':x=-tw+mod(t*80\,w+tw):y=h-th-30:fontsize=40:fontcolor=white:box=1:boxcolor=black@0.5" \
           -c:v libx264 -preset superfast -b:v 1500k -c:a aac -f flv "rtmp://a.rtmp.youtube.com/live2/5sm9-j2wv-s92e-z6uf-30x6"
