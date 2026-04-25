@@ -1,18 +1,17 @@
-name: Karbala Stream 24/7
-
+name: Karbala Stream Direct
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */6 * * *' # يعيد تشغيل نفسه كل 6 ساعات لضمان الاستمرار
-
 jobs:
-  build:
+  stream:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Build and Run Docker
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg wget
+      - name: Run Stream
         run: |
-          docker build -t stream-image .
-          docker run stream-image
+          wget -q https://github.com/google/fonts/raw/main/ofl/amiri/Amiri-Bold.ttf -O font.ttf
+          ffmpeg -re -i "https://stream.alkafeel.net/live/alkafeel/playlist.m3u8" \
+          -vf "drawtext=fontfile=font.ttf:text='عين كربلاء':x=w-tw-5:y=5:fontsize=70:fontcolor='#FFD700':box=1:boxcolor=black@0.8" \
+          -c:v libx264 -preset superfast -b:v 1500k -c:a aac -f flv "rtmp://a.rtmp.youtube.com/live2/q12g-s6wc-0y03-0ua5-6e6p"
