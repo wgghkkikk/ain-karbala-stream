@@ -11,7 +11,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg wget
       - name: Run Stream
         run: |
-          wget -q https://github.com/google/fonts/raw/main/ofl/amiri/Amiri-Bold.ttf -O font.ttf
+          wget -q https://github.com/google/fonts/raw/main/ofl/amiri/Amiri-Bold.ttf -O /tmp/font.ttf
           ffmpeg -re -i "https://stream.alkafeel.net/live/alkafeel/playlist.m3u8" \
-          -vf "drawtext=fontfile=font.ttf:text='عين كربلاء':x=w-tw-5:y=5:fontsize=70:fontcolor='#FFD700':box=1:boxcolor=black@0.8" \
+          -vf "drawtext=fontfile=/tmp/font.ttf:text='عين كربلاء':x=w-tw-20:y=20:fontsize=70:fontcolor='#FFD700':box=1:boxcolor=black@0.6, \
+          drawtext=fontfile=/tmp/font.ttf:text='اللهم ارزقنا زيارة الحسين في الدنيا وشفاعته في الآخرة .. قناة عين كربلاء ترحب بكم':x=-tw+mod(t*80\,w+tw):y=h-th-30:fontsize=45:fontcolor=white:box=1:boxcolor=black@0.5" \
           -c:v libx264 -preset superfast -b:v 1500k -c:a aac -f flv "rtmp://a.rtmp.youtube.com/live2/5sm9-j2wv-s92e-z6uf-30x6"
