@@ -14,6 +14,6 @@ jobs:
       - name: Run Stream
         run: |
           ffmpeg -re -i "https://stream.alkafeel.net/live/alkafeel/playlist.m3u8" \
-          -vf "drawtext=text='عـيـن كـربـلاء':x=w-tw:y=0:fontsize=70:fontcolor='#FFD700':box=1:boxcolor=black@1:boxborderw=35, \
-          drawtext=text='اللهم ارزقنا زيارة الحسين في الدنيا وشفاعته في الآخرة .. قناة عين كربلاء ترحب بكم':x=-tw+mod(t*80\,w+tw):y=h-th-5:fontsize=45:fontcolor=white:box=1:boxcolor=black@0.6" \
-          -c:v libx264 -preset ultrafast -tune zerolatency -b:v 1500k -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k -f flv "rtmp://a.rtmp.youtube.com/live2/5sm9-j2wv-s92e-z6uf-30x6"
+          -vf "scale=1280:720,drawtext=text='عـيـن كـربـلاء':x=w-tw:y=0:fontsize=65:fontcolor='#FFD700':box=1:boxcolor=black@1:boxborderw=30, \
+          drawtext=text='اللهم ارزقنا زيارة الحسين في الدنيا وشفاعته في الآخرة .. قناة عين كربلاء ترحب بكم':x=-tw+mod(t*80\,w+tw):y=h-th-5:fontsize=40:fontcolor=white:box=1:boxcolor=black@0.6" \
+          -c:v libx264 -preset ultrafast -tune zerolatency -b:v 800k -maxrate 800k -bufsize 4000k -c:a aac -b:a 96k -f flv "rtmp://a.rtmp.youtube.com/live2/5sm9-j2wv-s92e-z6uf-30x6"
